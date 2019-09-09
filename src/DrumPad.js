@@ -1,37 +1,29 @@
-import React from "react"
-import sound from './assets/test.wav'
+import React, { useEffect } from "react";
+import sound from "./assets/test.wav";
 
-class DrumPad extends React.Component {
-    constructor(props) {
-        super(props)
+export default function DrumPad(props) {
+  let audioRef = null;
 
-        this.state = {
-            play: false
-        }
-
-        this.play = this.play.bind(this)
-        this.pause = this.pause.bind(this)
+  useEffect(() => {
+    if (props.hit) {
+      audioRef.currentTime = 0;
+      audioRef.play();
     }
+  }, [props.hit]);
 
-    play = () => {
-        this.setState({ play: true })
-    }
-
-    pause = () => {
-        this.setState({ play: false })
-    }
-
-    render() {
-        return (
-            <div className="drum-pad">
-                <span>Play Status: {this.state.play ? "Play" : "Pause"}</span>
-                <br />
-                <audio src={sound} autoPlay={this.state.play}/>
-                <button onClick={this.play}>Play</button>
-                <button onClick={this.pause}>Pause</button>
-            </div>
-        )
-    }
+  return (
+    <div
+      className="drum-pad"
+      onMouseDown={props.mouseDownHandler}
+      onMouseUp={props.mouseUpHandler}
+    >
+      {props.hit ? "Hit!" : "None"}
+      <audio
+        ref={audio => {
+          audioRef = audio;
+        }}
+        src={sound}
+      />
+    </div>
+  );
 }
-
-export default DrumPad
