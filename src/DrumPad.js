@@ -14,10 +14,10 @@ export default function DrumPad(props) {
   return (
     <div
       className="drum-pad"
-      onMouseDown={props.mouseDownHandler}
-      onMouseUp={props.mouseUpHandler}
+      onMouseDown={() => props.mouseDownHandler(props.letter)}
+      onMouseUp={() => props.mouseUpHandler(props.letter)}
     >
-      {props.hit ? "Hit!" : "None"}
+      {props.letter}
       <audio
         ref={audio => {
           audioRef = audio;

@@ -1,83 +1,89 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import ReactFCCTest from "react-fcctest";
 import DrumPad from "./DrumPad";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+export default function App() {
+  const [keyPressed, setKeyPressed] = useState("None");
+  const [hit, setHit] = useState(false);
+  const [drumHits, setDrumHits] = useState({
+    Q: false,
+    W: false,
+    E: false,
+    A: false,
+    S: false,
+    D: false,
+    Z: false,
+    X: false,
+    C: false
+  });
+  const [currentBank, setCurrentBank] = useState(0);
 
-    this.state = {
-      keyPressed: "None",
-      hit: false
-    };
+  const handleKeyPress = e => {
+    setKeyPressed(e.keyCode);
 
-    // this.audio = new Audio(sound);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.handleKeyUp = this.handleKeyUp.bind(this);
-    this.handleMouseDown = this.handleMouseDown.bind(this);
-    this.handleMouseUp = this.handleMouseUp.bind(this);
-  }
-
-  handleKeyPress = e => {
-    this.setState({ keyPressed: e.keyCode });
     if (e.keyCode === 88) {
-      this.setState({ hit: true });
-      // this.audio.currentTime = 0;
+      setHit(true);
     }
   };
 
-  handleKeyUp = e => {
-    if (this.state.hit) {
-      this.setState({ hit: false });
-    }
+  const handleKeyUp = e => {
+    console.log("key up: " + e.keyCode);
+    setHit(false);
   };
 
-  handleMouseDown = e => {
-    this.setState({ hit: true });
+  const handleMouseDown = letter => {
+    setHit(true);
+    console.log("Mouse down on " + letter);
   };
 
-  handleMouseUp = e => {
-    this.setState({ hit: false });
+  const handleMouseUp = letter => {
+    setHit(false);
+    console.log("Mouse up on " + letter);
   };
 
-  play = () => {
-    this.audio.play();
-  };
+  useEffect(() => {
+    console.log("Adding event listeners...");
+    document.addEventListener("keydown", handleKeyPress, false);
+    document.addEventListener("keyup", handleKeyUp, false);
 
-  componentDidMount() {
-    document.addEventListener("keydown", this.handleKeyPress, false);
-    document.addEventListener("keyup", this.handleKeyUp, false);
-  }
+    return () => {
+      console.log("Cleaning up...");
+      document.removeEventListener("keydown", handleKeyPress, false);
+      document.removeEventListener("keyup", handleKeyUp, false);
+    };
+  }, []);
 
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleKeyPress, false);
-    document.removeEventListener("keyup", this.handleKeyUp, false);
-  }
-
-  render() {
-    return (
-      <div>
-        <ReactFCCTest />
-        <div id="drum-machine">
-          <div id="display">Key Pressed: {this.state.keyPressed}</div>
-          <div className="drum-pad">Q</div>
-          <div className="drum-pad">W</div>
-          <div className="drum-pad">E</div>
-          <div className="drum-pad">A</div>
-          <div className="drum-pad">S</div>
-          <div className="drum-pad">D</div>
-          <div className="drum-pad">Z</div>
-          <DrumPad
-            hit={this.state.hit}
-            mouseDownHandler={this.handleMouseDown}
-            mouseUpHandler={this.handleMouseUp}
-          />
-          <div className="drum-pad">C</div>
-        </div>
+  return (
+    <div>
+      <ReactFCCTest />
+      <div id="drum-machine">
+        <div id="display">Hit? {hit ? "Yes" : "No"}</div>
+        <div className="drum-pad">Q</div>
+        <div className="drum-pad">W</div>
+        <div className="drum-pad">E</div>
+        <div className="drum-pad">A</div>
+        <div className="drum-pad">S</div>
+        <div className="drum-pad">D</div>
+        <DrumPad
+          hit={hit}
+          mouseDownHandler={handleMouseDown}
+          mouseUpHandler={handleMouseUp}
+          letter="Z"
+        />
+        <DrumPad
+          hit={hit}
+          mouseDownHandler={handleMouseDown}
+          mouseUpHandler={handleMouseUp}
+          letter="X"
+        />
+        <DrumPad
+          hit={hit}
+          mouseDownHandler={handleMouseDown}
+          mouseUpHandler={handleMouseUp}
+          letter="C"
+        />
       </div>
-    );
-  }
+    </div>
+  );
 }
-
-export default App;
