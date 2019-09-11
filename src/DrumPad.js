@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import sound from "./assets/test.wav";
+import "./DrumPad.css";
 
 export default function DrumPad(props) {
   let audioRef = null;
@@ -13,7 +14,7 @@ export default function DrumPad(props) {
 
   return (
     <div
-      className="drum-pad"
+      className={props.hit ? "drum-pad hit" : "drum-pad"}
       onMouseDown={() => props.mouseDownHandler(props.letter)}
       onMouseUp={() => props.mouseUpHandler(props.letter)}
     >

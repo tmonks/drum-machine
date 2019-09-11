@@ -3,6 +3,7 @@ body {
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   box-sizing: border-box;
 }
+
 #drum-machine {
   display: grid;
   grid-template-columns: 150px 150px 150px;
@@ -28,10 +29,4 @@ body {
   font-size: 2em;
   width: 250px;
   border: 2px solid black;
-}
-
-.drum-pad {
-  background-color: black;
-  color: white;
-  border-radius: 5px;
 }

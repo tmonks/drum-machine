@@ -3,53 +3,147 @@ import "./App.css";
 import ReactFCCTest from "react-fcctest";
 import DrumPad from "./DrumPad";
 
+const drumPads = [
+  {
+    id: "Q",
+    samples: [
+      {
+        name: "kick drum",
+        file: "CYCdh_VinylK1-Kick01.wav"
+      }
+    ]
+  },
+  {
+    id: "W",
+    samples: [
+      {
+        name: "snare",
+        file: "CYCdh_VinylK1-Snr01.wav"
+      }
+    ]
+  },
+  {
+    id: "E",
+    samples: [
+      {
+        name: "open hi-hat",
+        file: "CYCdh_VinylK1-OpHat.wav"
+      }
+    ]
+  },
+  {
+    id: "A",
+    samples: [
+      {
+        name: "kick drum",
+        file: "CYCdh_VinylK1-Kick01.wav"
+      }
+    ]
+  },
+  {
+    id: "S",
+    samples: [
+      {
+        name: "snare",
+        file: "CYCdh_VinylK1-Snr01.wav"
+      }
+    ]
+  },
+  {
+    id: "D",
+    samples: [
+      {
+        name: "open hi-hat",
+        file: "CYCdh_VinylK1-OpHat.wav"
+      }
+    ]
+  },
+  {
+    id: "Z",
+    samples: [
+      {
+        name: "kick drum",
+        file: "CYCdh_VinylK1-Kick01.wav"
+      }
+    ]
+  },
+  {
+    id: "X",
+    samples: [
+      {
+        name: "snare",
+        file: "CYCdh_VinylK1-Snr01.wav"
+      }
+    ]
+  },
+  {
+    id: "C",
+    samples: [
+      {
+        name: "open hi-hat",
+        file: "CYCdh_VinylK1-OpHat.wav"
+      }
+    ]
+  }
+];
+
 export default function App() {
-  const [keyPressed, setKeyPressed] = useState("None");
+  const [display, setDisplay] = useState("None");
   const [hit, setHit] = useState(false);
-  const [drumHits, setDrumHits] = useState({
-    Q: false,
-    W: false,
-    E: false,
-    A: false,
-    S: false,
-    D: false,
-    Z: false,
-    X: false,
-    C: false
-  });
+  const [drumHits, setDrumHits] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ]);
   const [currentBank, setCurrentBank] = useState(0);
 
-  const handleKeyPress = e => {
-    setKeyPressed(e.keyCode);
+  const letterToDrumPad = letter => {
+    return drumPads.findIndex(x => {
+      return x.id == letter;
+    });
+  };
 
-    if (e.keyCode === 88) {
-      setHit(true);
+  const hitDrumPad = (letter, hit) => {
+    const drumPadID = letterToDrumPad(letter);
+
+    if (drumPadID >= 0 && drumPadID < drumHits.length) {
+      const updatedDrumHits = [...drumHits];
+      updatedDrumHits[drumPadID] = hit;
+      setDrumHits(updatedDrumHits);
+      setDisplay(drumPads[drumPadID].samples[currentBank].name);
     }
   };
 
+  const handleKeyDown = e => {
+    hitDrumPad(String.fromCharCode(e.keyCode), true);
+  };
+
   const handleKeyUp = e => {
-    console.log("key up: " + e.keyCode);
-    setHit(false);
+    hitDrumPad(String.fromCharCode(e.keyCode), false);
   };
 
   const handleMouseDown = letter => {
-    setHit(true);
-    console.log("Mouse down on " + letter);
+    hitDrumPad(letter, true);
   };
 
   const handleMouseUp = letter => {
-    setHit(false);
-    console.log("Mouse up on " + letter);
+    hitDrumPad(letter, false);
   };
 
   useEffect(() => {
     console.log("Adding event listeners...");
-    document.addEventListener("keydown", handleKeyPress, false);
+    document.addEventListener("keydown", handleKeyDown, false);
     document.addEventListener("keyup", handleKeyUp, false);
 
     return () => {
       console.log("Cleaning up...");
-      document.removeEventListener("keydown", handleKeyPress, false);
+      document.removeEventListener("keydown", handleKeyDown, false);
       document.removeEventListener("keyup", handleKeyUp, false);
     };
   }, []);
@@ -58,31 +152,17 @@ export default function App() {
     <div>
       <ReactFCCTest />
       <div id="drum-machine">
-        <div id="display">Hit? {hit ? "Yes" : "No"}</div>
-        <div className="drum-pad">Q</div>
-        <div className="drum-pad">W</div>
-        <div className="drum-pad">E</div>
-        <div className="drum-pad">A</div>
-        <div className="drum-pad">S</div>
-        <div className="drum-pad">D</div>
-        <DrumPad
-          hit={hit}
-          mouseDownHandler={handleMouseDown}
-          mouseUpHandler={handleMouseUp}
-          letter="Z"
-        />
-        <DrumPad
-          hit={hit}
-          mouseDownHandler={handleMouseDown}
-          mouseUpHandler={handleMouseUp}
-          letter="X"
-        />
-        <DrumPad
-          hit={hit}
-          mouseDownHandler={handleMouseDown}
-          mouseUpHandler={handleMouseUp}
-          letter="C"
-        />
+        <div id="display">{display}</div>
+        {drumPads.map((drumPad, index) => {
+          return (
+            <DrumPad
+              hit={drumHits[index]}
+              mouseDownHandler={handleMouseDown}
+              mouseUpHandler={handleMouseUp}
+              letter={drumPad.id}
+            />
+          );
+        })}
       </div>
     </div>
   );

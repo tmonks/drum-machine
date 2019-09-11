@@ -1,0 +1,10 @@
+.drum-pad {
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  transition: all 200ms;
+}
+
+.hit {
+  background-color: orange;
+}
