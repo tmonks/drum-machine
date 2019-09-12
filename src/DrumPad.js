@@ -24,7 +24,7 @@ export default function DrumPad(props) {
         ref={audio => {
           audioRef = audio;
         }}
-        src="http://localhost:3000/assets/test.wav"
+        src={process.env.PUBLIC_URL + '/sounds/' + props.clip}
         id={props.letter}
         className="clip"
       />

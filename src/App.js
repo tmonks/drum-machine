@@ -174,7 +174,7 @@ export default function App() {
               letter={drumPad.id}
               drumPadID={index}
               key={index}
-              // clip={drumPad.samples[currentBank].file}
+              clip={drumPad.samples[currentBank].file}
             />
           );
         })}
