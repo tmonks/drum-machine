@@ -8,8 +8,8 @@ const drumPads = [
     id: "Q",
     samples: [
       {
-        name: "kick drum",
-        file: "CYCdh_VinylK1-Kick01.wav"
+        name: "closed hi-hat",
+        file: "CYCdh_VinylK1-ClHat01.wav"
       }
     ]
   },
@@ -17,8 +17,8 @@ const drumPads = [
     id: "W",
     samples: [
       {
-        name: "snare",
-        file: "CYCdh_VinylK1-Snr01.wav"
+        name: "open hi-hat",
+        file: "CYCdh_VinylK1-OpHat.wav"
       }
     ]
   },
@@ -26,8 +26,8 @@ const drumPads = [
     id: "E",
     samples: [
       {
-        name: "open hi-hat",
-        file: "CYCdh_VinylK1-OpHat.wav"
+        name: "tambourine",
+        file: "CYCdh_VinylK1-Tamb.wav"
       }
     ]
   },
@@ -103,15 +103,15 @@ export default function App() {
   ]);
   const [currentBank, setCurrentBank] = useState(0);
 
+  // given a letter, find the drumPadID (index) of the drumPad
   const letterToDrumPad = letter => {
     return drumPads.findIndex(x => {
       return x.id == letter;
     });
   };
 
-  const hitDrumPad = (letter, hit) => {
-    const drumPadID = letterToDrumPad(letter);
-
+  const hitDrumPad = (drumPadID, hit) => {
+    // confirm the drumPadID is valid for updating state
     if (drumPadID >= 0 && drumPadID < drumHits.length) {
       const updatedDrumHits = [...drumHits];
       updatedDrumHits[drumPadID] = hit;
@@ -120,20 +120,32 @@ export default function App() {
     }
   };
 
+  // if one of keys for a drumPad is pressed, hit the drum pad
   const handleKeyDown = e => {
-    hitDrumPad(String.fromCharCode(e.keyCode), true);
+    const drumPadID = letterToDrumPad(String.fromCharCode(e.keyCode));
+    // confirm the drumPad was found
+    if (drumPadID >= 0) {
+      hitDrumPad(drumPadID, true);
+    }
   };
 
+  // if one of the keys for a drumPad is released, release the drum pad
   const handleKeyUp = e => {
-    hitDrumPad(String.fromCharCode(e.keyCode), false);
+    const drumPadID = letterToDrumPad(String.fromCharCode(e.keyCode));
+    // confirm the drumPad was found
+    if (drumPadID >= 0) {
+      hitDrumPad(drumPadID, false);
+    }
   };
 
-  const handleMouseDown = letter => {
-    hitDrumPad(letter, true);
+  // if a drumPad is clicked, mark it as hit
+  const handleMouseDown = drumPadID => {
+    hitDrumPad(drumPadID, true);
   };
 
-  const handleMouseUp = letter => {
-    hitDrumPad(letter, false);
+  // if a drumPad is clicked, mark it as not hit
+  const handleMouseUp = drumPadID => {
+    hitDrumPad(drumPadID, false);
   };
 
   useEffect(() => {
@@ -160,6 +172,9 @@ export default function App() {
               mouseDownHandler={handleMouseDown}
               mouseUpHandler={handleMouseUp}
               letter={drumPad.id}
+              drumPadID={index}
+              key={index}
+              // clip={drumPad.samples[currentBank].file}
             />
           );
         })}
