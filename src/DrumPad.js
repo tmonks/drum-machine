@@ -10,7 +10,7 @@ export default function DrumPad(props) {
       audioRef.currentTime = 0;
       audioRef.play();
     }
-  }, [props.hit]);
+  }, [props.hit, audioRef]);
 
   return (
     <div
@@ -24,7 +24,7 @@ export default function DrumPad(props) {
         ref={audio => {
           audioRef = audio;
         }}
-        src={process.env.PUBLIC_URL + '/sounds/' + props.clip}
+        src={process.env.PUBLIC_URL + "/sounds/" + props.clip}
         id={props.letter}
         className="clip"
       />

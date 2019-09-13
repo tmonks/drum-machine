@@ -2,94 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import ReactFCCTest from "react-fcctest";
 import DrumPad from "./DrumPad";
-
-const drumPads = [
-  {
-    id: "Q",
-    samples: [
-      {
-        name: "closed hi-hat",
-        file: "CYCdh_VinylK1-ClHat01.wav"
-      }
-    ]
-  },
-  {
-    id: "W",
-    samples: [
-      {
-        name: "open hi-hat",
-        file: "CYCdh_VinylK1-OpHat.wav"
-      }
-    ]
-  },
-  {
-    id: "E",
-    samples: [
-      {
-        name: "tambourine",
-        file: "CYCdh_VinylK1-Tamb.wav"
-      }
-    ]
-  },
-  {
-    id: "A",
-    samples: [
-      {
-        name: "kick drum",
-        file: "CYCdh_VinylK1-Kick01.wav"
-      }
-    ]
-  },
-  {
-    id: "S",
-    samples: [
-      {
-        name: "snare",
-        file: "CYCdh_VinylK1-Snr01.wav"
-      }
-    ]
-  },
-  {
-    id: "D",
-    samples: [
-      {
-        name: "open hi-hat",
-        file: "CYCdh_VinylK1-OpHat.wav"
-      }
-    ]
-  },
-  {
-    id: "Z",
-    samples: [
-      {
-        name: "kick drum",
-        file: "CYCdh_VinylK1-Kick01.wav"
-      }
-    ]
-  },
-  {
-    id: "X",
-    samples: [
-      {
-        name: "snare",
-        file: "CYCdh_VinylK1-Snr01.wav"
-      }
-    ]
-  },
-  {
-    id: "C",
-    samples: [
-      {
-        name: "open hi-hat",
-        file: "CYCdh_VinylK1-OpHat.wav"
-      }
-    ]
-  }
-];
+import drumPadConfig from "./drumPadConfig";
 
 export default function App() {
-  const [display, setDisplay] = useState("None");
-  const [hit, setHit] = useState(false);
+  const [display, setDisplay] = useState("");
   const [drumHits, setDrumHits] = useState([
     false,
     false,
@@ -105,8 +21,8 @@ export default function App() {
 
   // given a letter, find the drumPadID (index) of the drumPad
   const letterToDrumPad = letter => {
-    return drumPads.findIndex(x => {
-      return x.id == letter;
+    return drumPadConfig.findIndex(x => {
+      return x.id === letter;
     });
   };
 
@@ -116,25 +32,7 @@ export default function App() {
       const updatedDrumHits = [...drumHits];
       updatedDrumHits[drumPadID] = hit;
       setDrumHits(updatedDrumHits);
-      setDisplay(drumPads[drumPadID].samples[currentBank].name);
-    }
-  };
-
-  // if one of keys for a drumPad is pressed, hit the drum pad
-  const handleKeyDown = e => {
-    const drumPadID = letterToDrumPad(String.fromCharCode(e.keyCode));
-    // confirm the drumPad was found
-    if (drumPadID >= 0) {
-      hitDrumPad(drumPadID, true);
-    }
-  };
-
-  // if one of the keys for a drumPad is released, release the drum pad
-  const handleKeyUp = e => {
-    const drumPadID = letterToDrumPad(String.fromCharCode(e.keyCode));
-    // confirm the drumPad was found
-    if (drumPadID >= 0) {
-      hitDrumPad(drumPadID, false);
+      setDisplay(drumPadConfig[drumPadID].samples[currentBank].name);
     }
   };
 
@@ -150,6 +48,25 @@ export default function App() {
 
   useEffect(() => {
     console.log("Adding event listeners...");
+
+    // if one of keys for a drumPad is pressed, hit the drum pad
+    const handleKeyDown = e => {
+      const drumPadID = letterToDrumPad(String.fromCharCode(e.keyCode));
+      // confirm the drumPad was found
+      if (drumPadID >= 0) {
+        hitDrumPad(drumPadID, true);
+      }
+    };
+
+    // if one of the keys for a drumPad is released, release the drum pad
+    const handleKeyUp = e => {
+      const drumPadID = letterToDrumPad(String.fromCharCode(e.keyCode));
+      // confirm the drumPad was found
+      if (drumPadID >= 0) {
+        hitDrumPad(drumPadID, false);
+      }
+    };
+
     document.addEventListener("keydown", handleKeyDown, false);
     document.addEventListener("keyup", handleKeyUp, false);
 
@@ -165,7 +82,7 @@ export default function App() {
       <ReactFCCTest />
       <div id="drum-machine">
         <div id="display">{display}</div>
-        {drumPads.map((drumPad, index) => {
+        {drumPadConfig.map((drumPad, index) => {
           return (
             <DrumPad
               hit={drumHits[index]}
