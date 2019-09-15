@@ -47,7 +47,6 @@ export default function App() {
   };
 
   useEffect(() => {
-    console.log("Adding event listeners...");
 
     // if one of keys for a drumPad is pressed, hit the drum pad
     const handleKeyDown = e => {
@@ -67,6 +66,7 @@ export default function App() {
       }
     };
 
+    console.log("Adding event listeners...");
     document.addEventListener("keydown", handleKeyDown, false);
     document.addEventListener("keyup", handleKeyUp, false);
 
@@ -75,6 +75,7 @@ export default function App() {
       document.removeEventListener("keydown", handleKeyDown, false);
       document.removeEventListener("keyup", handleKeyUp, false);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
