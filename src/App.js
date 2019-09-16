@@ -47,7 +47,6 @@ export default function App() {
   };
 
   useEffect(() => {
-
     // if one of keys for a drumPad is pressed, hit the drum pad
     const handleKeyDown = e => {
       const drumPadID = letterToDrumPad(String.fromCharCode(e.keyCode));
@@ -82,6 +81,7 @@ export default function App() {
     <div>
       <ReactFCCTest />
       <div id="drum-machine">
+        <div className="title">SOUND MACHINE</div>
         <div id="display">{display}</div>
         {drumPadConfig.map((drumPad, index) => {
           return (

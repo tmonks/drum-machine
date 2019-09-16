@@ -1,14 +1,19 @@
 .drum-pad {
-  background-color: black;
+  /* background-color: #fd509c; */
   color: white;
-  border-radius: 5px;
+  border-radius: 10px;
   transition: all 100ms;
   display: flex;
   flex-direction: column;
   justify-content: center;
   font-size: 2em;
+  /* background-image: radial-gradient(circle, #0bb5ff, #0676ff); */
+  background-image: radial-gradient(circle, #73d60a, #0bb80e);
+  font-family: "Press Start 2P", cursive;
 }
 
 .hit {
-  background-color: orange;
+  /* background-color: orange; */
+  background-image: none;
+  background-color: #fd509c;
 }
