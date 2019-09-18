@@ -1,22 +1,31 @@
 body {
   /* font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", */
   /* "Lucida Sans Unicode", Geneva, Verdana, sans-serif; */
-  font-family: "Press Start 2P", cursive;
+  font-family: "Fredoka One", cursive;
+  /* font-family: "Modak", cursive; */
+  /* font-family: "Monoton", cursive; */
+  /* font-family: "Cute Font", cursive; */
+  /* font-family: "Press Start 2P", cursive; */
   box-sizing: border-box;
   /* background-color: cornflowerblue; */
   background-color: black;
   margin: 0;
   background-image: radial-gradient(rgba(0, 150, 0, 0.5), black 120%);
   height: 100vh;
-  filter: blur(0.6px);
   text-shadow: 0 0 5px #c8c8c8;
 
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center; */
+  /* prevent text selection */
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome and Opera */
 }
 
 #drum-machine {
+  /* filter: blur(0.6px); */
   display: grid;
   position: fixed;
   top: 10%;
@@ -28,6 +37,7 @@ body {
   align-content: space-evenly;
   text-align: center;
   /* margin: 0 auto; */
+  margin: 0 5px;
   max-width: 400px;
   width: 100%;
   height: 400px;
@@ -38,6 +48,7 @@ body {
 }
 
 #display {
+  display: inline-block;
   grid-column-start: span 3;
   margin: 20px auto;
   background-color: #a4e4fc;

@@ -5,26 +5,32 @@ import "./DrumPad.css";
 export default function DrumPad(props) {
   let audioRef = null;
 
-  const [lit, setLit] = useState(false);
+  const [animated, setLit] = useState(false);
 
   useEffect(() => {
     if (props.hit) {
       audioRef.currentTime = 0;
       audioRef.play();
-      setLit(true);
     }
   }, [props.hit, audioRef]);
 
-  const handleClick = () => {
+  const handleMouseDown = () => {
     setLit(false);
     props.mouseDownHandler(props.drumPadID);
   };
 
+  const handleMouseUp = () => {
+    setLit(true);
+    props.mouseUpHandler(props.drumPadID);
+  };
+
   return (
     <div
-      className={lit ? "drum-pad hit" : "drum-pad"}
-      onMouseDown={() => handleClick()}
-      onMouseUp={() => props.mouseUpHandler(props.drumPadID)}
+      className={`drum-pad ${props.hit ? "hit" : ""} ${
+        animated ? "animated" : ""
+      }`}
+      onMouseDown={() => handleMouseDown()}
+      onMouseUp={() => handleMouseUp()}
       onAnimationEnd={() => setLit(false)}
       id={"drumPad" + props.drumPadID}
     >

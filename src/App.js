@@ -81,7 +81,7 @@ export default function App() {
     <div>
       <ReactFCCTest />
       <div id="drum-machine">
-        <div className="title">SOUND MACHINE</div>
+        <div className="title">DRUM MACHINE</div>
         <div id="display">{display}</div>
         {drumPadConfig.map((drumPad, index) => {
           return (
