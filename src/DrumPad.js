@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import sound from "./assets/test.wav";
-import "./DrumPad.css";
+import "./DrumPad.scss";
 
 export default function DrumPad(props) {
   let audioRef = null;

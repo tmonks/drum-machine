@@ -1,6 +1,8 @@
+@import "./variables.scss";
+
 .drum-pad {
   /* background-color: #fd509c; */
-  color: white;
+  color: $drumPadFontColor;
   border-radius: 10px;
   transition: all 100ms;
   display: flex;
@@ -9,7 +11,7 @@
   font-size: 2em;
   /* background-image: radial-gradient(circle, #0bb5ff, #0676ff); */
   /* background-image: radial-gradient(circle, #73d60a, #0bb80e); */
-  background-color: #00b800;
+  background-color: $drumPadBgColor;
   /* font-family: "Press Start 2P", cursive; */
 }
 
@@ -22,18 +24,21 @@
   /* background-color: #fd509c; */
 
   /* background-image: none; */
-  background-color: #b8f818;
+  background-color: $drumPadPressed;
+  box-shadow: 0 0 10px white;
 }
 
 .animated {
-  animation: revert-color 0.5s;
+  animation: revert-color 300ms;
 }
 
 @keyframes revert-color {
   from {
-    background-color: #b8f818;
+    background-color: $drumPadPressed;
+    box-shadow: 0 0 10px white;
   }
   to {
-    background-color: #00b800;
+    background-color: $drumPadBgColor;
+    box-shadow: none;
   }
 }

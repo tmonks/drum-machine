@@ -1,3 +1,5 @@
+@import "./variables.scss";
+
 body {
   /* font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", */
   /* "Lucida Sans Unicode", Geneva, Verdana, sans-serif; */
@@ -8,11 +10,12 @@ body {
   /* font-family: "Press Start 2P", cursive; */
   box-sizing: border-box;
   /* background-color: cornflowerblue; */
-  background-color: black;
+  background-color: $appBgColor;
   margin: 0;
-  background-image: radial-gradient(rgba(0, 150, 0, 0.5), black 120%);
+  // background-image: radial-gradient(rgba(0, 150, 0, 0.5), black 120%);
   height: 100vh;
-  text-shadow: 0 0 5px #c8c8c8;
+  // text-shadow: 0 0 5px #c8c8c8;
+  color: white;
 
   /* prevent text selection */
   -webkit-touch-callout: none; /* iOS Safari */
@@ -41,24 +44,9 @@ body {
   max-width: 400px;
   width: 100%;
   height: 400px;
-  background-color: #7c7c7c;
+  background-color: $drumMachineBgColor;
   border-radius: 10px;
   /* border: 5px solid black; */
-  box-shadow: 0 0 5px #c8c8c8;
-}
-
-#display {
-  display: inline-block;
-  grid-column-start: span 3;
-  margin: 20px auto;
-  background-color: #a4e4fc;
-  color: #0000bc;
-  width: 90%;
-  height: 50px;
-  /* border: 2px solid black; */
-  padding-top: 7px;
-  border-radius: 5px;
-  font-size: 1.5em;
 }
 
 .title {

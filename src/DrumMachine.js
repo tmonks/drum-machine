@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
+import "./DrumMachine.scss";
 import ReactFCCTest from "react-fcctest";
+import Display from "./Display";
 import DrumPad from "./DrumPad";
 import drumPadConfig from "./drumPadConfig";
 
-export default function App() {
+export default function DrumMachine() {
   const [display, setDisplay] = useState("");
   const [drumHits, setDrumHits] = useState([
     false,
@@ -82,7 +83,7 @@ export default function App() {
       <ReactFCCTest />
       <div id="drum-machine">
         <div className="title">DRUM MACHINE</div>
-        <div id="display">{display}</div>
+        <Display clipName={display} />
         {drumPadConfig.map((drumPad, index) => {
           return (
             <DrumPad
