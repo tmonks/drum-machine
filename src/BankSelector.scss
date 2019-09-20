@@ -1,0 +1,27 @@
+@import "variables.scss";
+
+#display-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  grid-column-start: span 3;
+}
+
+#triangle-left {
+  width: 0;
+  height: 0;
+  border-top: 15px solid transparent;
+  border-right: 25px solid $drumPadBgColor;
+  border-bottom: 15px solid transparent;
+  border-radius: 7px;
+}
+
+#triangle-right {
+  width: 0;
+  height: 0;
+  border-top: 15px solid transparent;
+  border-left: 25px solid $drumPadBgColor;
+  border-bottom: 15px solid transparent;
+  border-radius: 7px;
+}

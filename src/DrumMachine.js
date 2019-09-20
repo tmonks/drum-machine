@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./DrumMachine.scss";
 import ReactFCCTest from "react-fcctest";
-import Display from "./Display";
+import BankSelector from "./BankSelector";
 import DrumPad from "./DrumPad";
-import drumPadConfig from "./drumPadConfig";
+import drumPadConfig, { bankList } from "./drumPadConfig";
 
 export default function DrumMachine() {
   const [display, setDisplay] = useState("");
@@ -33,7 +33,7 @@ export default function DrumMachine() {
       const updatedDrumHits = [...drumHits];
       updatedDrumHits[drumPadID] = hit;
       setDrumHits(updatedDrumHits);
-      setDisplay(drumPadConfig[drumPadID].samples[currentBank].name);
+      setDisplay(drumPadConfig[drumPadID].samples[0].name);
     }
   };
 
@@ -45,6 +45,14 @@ export default function DrumMachine() {
   // if a drumPad is clicked, mark it as not hit
   const handleMouseUp = drumPadID => {
     hitDrumPad(drumPadID, false);
+  };
+
+  const handleClickRight = () => {
+    setCurrentBank((currentBank + 1) % bankList.length);
+  };
+
+  const handleClickLeft = () => {
+    setCurrentBank((currentBank + bankList.length - 1) % bankList.length);
   };
 
   useEffect(() => {
@@ -82,8 +90,16 @@ export default function DrumMachine() {
     <div>
       <ReactFCCTest />
       <div id="drum-machine">
-        <div className="title">DRUM MACHINE</div>
-        <Display clipName={display} />
+        <div className="title">SOUND MACHINE</div>
+        <BankSelector
+          clipName=""
+          currentBank={bankList[currentBank]}
+          clickRightHandler={handleClickRight}
+          clickLeftHandler={handleClickLeft}
+        />
+        <div id="display" className="display">
+          {display}
+        </div>
         {drumPadConfig.map((drumPad, index) => {
           return (
             <DrumPad
@@ -93,7 +109,7 @@ export default function DrumMachine() {
               letter={drumPad.id}
               drumPadID={index}
               key={index}
-              clip={drumPad.samples[currentBank].file}
+              clip={drumPad.samples[0].file}
             />
           );
         })}

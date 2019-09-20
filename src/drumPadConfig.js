@@ -1,3 +1,11 @@
+export const bankList = [
+  "drum set",
+  "donkey kong",
+  "animals",
+  "beat-box",
+  "cartoon"
+];
+
 const drumPadConfig = [
   {
     id: "Q",
