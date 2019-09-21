@@ -33,7 +33,7 @@ export default function DrumMachine() {
       const updatedDrumHits = [...drumHits];
       updatedDrumHits[drumPadID] = hit;
       setDrumHits(updatedDrumHits);
-      setDisplay(drumPadConfig[drumPadID].samples[0].name);
+      setDisplay(drumPadConfig[drumPadID].samples[currentBank].name);
     }
   };
 
@@ -49,10 +49,12 @@ export default function DrumMachine() {
 
   const handleClickRight = () => {
     setCurrentBank((currentBank + 1) % bankList.length);
+    setDisplay("");
   };
 
   const handleClickLeft = () => {
     setCurrentBank((currentBank + bankList.length - 1) % bankList.length);
+    setDisplay("");
   };
 
   useEffect(() => {
@@ -109,7 +111,7 @@ export default function DrumMachine() {
               letter={drumPad.id}
               drumPadID={index}
               key={index}
-              clip={drumPad.samples[0].file}
+              clip={drumPad.samples[currentBank].file}
             />
           );
         })}

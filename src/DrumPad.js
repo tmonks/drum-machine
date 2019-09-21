@@ -10,7 +10,15 @@ export default function DrumPad(props) {
   useEffect(() => {
     if (props.hit) {
       audioRef.currentTime = 0;
-      audioRef.play();
+
+      // audio.play() returns a Promise  
+      let playPromise = audioRef.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+            console.log("playback failed: " + error);
+        });
+      }
     }
   }, [props.hit, audioRef]);
 
