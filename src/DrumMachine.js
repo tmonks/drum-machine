@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import ReactFCCTest from "react-fcctest";
 import BankSelector from "./BankSelector";
 import DrumPad from "./DrumPad";
-import drumPadConfig, { soundBanks } from "./drumPadConfig";
+import soundBanks from "./soundBanks";
 import "./DrumMachine.scss";
 
 export default function DrumMachine() {
@@ -23,21 +23,27 @@ export default function DrumMachine() {
 
   // given a letter, find the drumPadID (index) of the drumPad
   const letterToDrumPad = letter => {
-    return drumPadConfig.findIndex(x => {
-      return x.id === letter;
+    return drumPadLetters.findIndex(x => {
+      return x === letter;
     });
   };
 
-  const hitDrumPad = (drumPadID, hit) => {
-    // confirm the drumPadID is valid for updating state
-    if (drumPadID >= 0 && drumPadID < drumHits.length) {
-      const updatedDrumHits = [...drumHits];
-      updatedDrumHits[drumPadID] = hit;
-      setDrumHits(updatedDrumHits);
-      setDisplay(soundBanks[currentBank].samples[drumPadID].name);
-      console.log("setting display to " + display);
-    }
-  };
+  // Updates drumPadHits to mark the drumPadID as hit (true/false)
+  // Using useCallback so that it only gets updated when currentBank changes
+  const hitDrumPad = useCallback(
+    (drumPadID, hit) => {
+      // confirm the drumPadID is valid for updating state
+      if (drumPadID >= 0 && drumPadID < drumHits.length) {
+        const updatedDrumHits = [...drumHits];
+        updatedDrumHits[drumPadID] = hit;
+        setDrumHits(updatedDrumHits);
+        if (hit) {
+          setDisplay(soundBanks[currentBank].samples[drumPadID].name);
+        }
+      }
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    [currentBank]
+  );
 
   // if a drumPad is clicked, mark it as hit
   const handleMouseDown = drumPadID => {
@@ -88,8 +94,7 @@ export default function DrumMachine() {
       document.removeEventListener("keydown", handleKeyDown, false);
       document.removeEventListener("keyup", handleKeyUp, false);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [hitDrumPad]);
 
   return (
     <div>
@@ -131,7 +136,6 @@ export default function DrumMachine() {
             />
           );
         })} */}
- 
       </div>
     </div>
   );

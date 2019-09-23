@@ -5,30 +5,36 @@ import "./DrumPad.scss";
 export default function DrumPad(props) {
   let audioRef = null;
 
-  const [animated, setLit] = useState(false);
+  const [animated, setAnimated] = useState(false);
 
   useEffect(() => {
     if (props.hit) {
       audioRef.currentTime = 0;
+      setAnimated(false);
 
-      // audio.play() returns a Promise  
+      // audio.play() returns a Promise
       let playPromise = audioRef.play();
 
       if (playPromise !== undefined) {
-        playPromise.catch(error => {
+        playPromise
+          .then(() => {
+            handleMouseUp();
+            setAnimated(true);
+          })
+          .catch(error => {
             console.log("playback failed: " + error);
-        });
+          });
       }
     }
   }, [props.hit, audioRef]);
 
   const handleMouseDown = () => {
-    setLit(false);
+    setAnimated(false);
     props.mouseDownHandler(props.drumPadID);
   };
 
   const handleMouseUp = () => {
-    setLit(true);
+    setAnimated(true);
     props.mouseUpHandler(props.drumPadID);
   };
 
@@ -38,8 +44,8 @@ export default function DrumPad(props) {
         animated ? "animated" : ""
       }`}
       onMouseDown={() => handleMouseDown()}
-      onMouseUp={() => handleMouseUp()}
-      onAnimationEnd={() => setLit(false)}
+      // onMouseUp={() => handleMouseUp()}
+      onAnimationEnd={() => setAnimated(false)}
       id={"drumPad" + props.drumPadID}
     >
       {props.letter}
@@ -50,7 +56,7 @@ export default function DrumPad(props) {
         src={process.env.PUBLIC_URL + "/sounds/" + props.clip}
         id={props.letter}
         className="clip"
-        onEnded={() => console.log("playback finished")}
+        // onEnded={() => console.log("playback finished")}
       />
     </div>
   );
