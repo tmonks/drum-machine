@@ -6,7 +6,8 @@
 { name: "lion", file: "animals/24[kb]lion-roar.wav.mp3" },
 { name: "grizzly bear", file: "animals/268[kb]grizzly-bear-big-growl.wav.mp3" },
 { name: "ducks", file: "animals/455[kb]duck-quacks.wav.mp3" },
-{ name: "jungle bird", file: "animals/87[kb]jungle-bird.aif.mp3" },
+{ name: "loon", file: "animals/87[kb]jungle-bird.aif.mp3" },
+
 { name: "lo-fi bass drum", file: "beat-box/15[kb]vox_lofi_bd.aif.mp3" },
 { name: "bass drum", file: "beat-box/28[kb]vox_bd.aif.mp3" },
 { name: "hi hat", file: "beat-box/28[kb]vox_hi_hat.aif.mp3" },
@@ -17,6 +18,7 @@
 { name: "phat bass drum", file: "beat-box/44[kb]phat_vox_bd.aif.mp3" },
 { name: "breathy rhythm", file: "beat-box/50[kb]vox_breathy_rhythm.aif.mp3" },
 { name: "break 1", file: "beat-box/66[kb]lofi_vox_break 1.aif.mp3" },
+
 { name: "rude raspberry", file: "cartoon/108[kb]rude-raspberry.wav.mp3" },
 { name: "sports whistle", file: "cartoon/156[kb]sports-whistle.wav.mp3" },
 { name: "spin whistle", file: "cartoon/159[kb]cartoon-spin-whistle.wav.mp3" },
@@ -27,6 +29,7 @@
 { name: "belch", file: "cartoon/417[kb]big-ol-belch-2.wav.mp3" },
 { name: "car horn 1", file: "cartoon/586[kb]model-a-car-horn.wav.mp3" },
 { name: "cloth rip", file: "cartoon/92[kb]cloth-rip.wav.mp3" },
+
 { name: "snap jaw", file: "donkey-kong-jr/12[kb]snapjaw.wav.mp3" },
 { name: "roar", file: "donkey-kong-jr/23[kb]roar.wav.mp3" },
 { name: "land", file: "donkey-kong-jr/28[kb]land.wav.mp3" },
@@ -36,6 +39,7 @@
 { name: "death", file: "donkey-kong-jr/89[kb]death.wav.mp3" },
 { name: "climb", file: "donkey-kong-jr/8[kb]climb.wav.mp3" },
 { name: "walk", file: "donkey-kong-jr/8[kb]walk.wav.mp3" },
+
 { name: "kick 1", file: "power-drum-kit/606-kick1.mp3" },
 { name: "bass drum", file: "power-drum-kit/BDRUM13.mp3" },
 { name: "bongo 1", file: "power-drum-kit/BONGO1.mp3" },
