@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactFCCTest from "react-fcctest";
 import BankSelector from "./BankSelector";
 import DrumPad from "./DrumPad";
-import drumPadConfig, { bankList, soundBanks } from "./drumPadConfig";
+import drumPadConfig, { soundBanks } from "./drumPadConfig";
 import "./DrumMachine.scss";
 
 export default function DrumMachine() {
@@ -34,8 +34,8 @@ export default function DrumMachine() {
       const updatedDrumHits = [...drumHits];
       updatedDrumHits[drumPadID] = hit;
       setDrumHits(updatedDrumHits);
-      // setDisplay(drumPadConfig[drumPadID].samples[currentBank].name);
       setDisplay(soundBanks[currentBank].samples[drumPadID].name);
+      console.log("setting display to " + display);
     }
   };
 
@@ -55,7 +55,7 @@ export default function DrumMachine() {
   };
 
   const handleClickLeft = () => {
-    setCurrentBank((currentBank + bankList.length - 1) % soundBanks.length);
+    setCurrentBank((currentBank + soundBanks.length - 1) % soundBanks.length);
     setDisplay("");
   };
 

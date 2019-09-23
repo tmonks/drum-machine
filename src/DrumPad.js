@@ -50,6 +50,7 @@ export default function DrumPad(props) {
         src={process.env.PUBLIC_URL + "/sounds/" + props.clip}
         id={props.letter}
         className="clip"
+        onEnded={() => console.log("playback finished")}
       />
     </div>
   );
