@@ -1,40 +1,24 @@
 @import "./variables.scss";
 
 .drum-pad {
-  /* background-color: #fd509c; */
   color: $drumPadFontColor;
+  background-color: $drumPadBgColor;
+  font-size: 2em;
   border-radius: 10px;
-  transition: all 100ms;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: 2em;
-  /* background-image: radial-gradient(circle, #0bb5ff, #0676ff); */
-  /* background-image: radial-gradient(circle, #73d60a, #0bb80e); */
-  background-color: $drumPadBgColor;
-  /* font-family: "Press Start 2P", cursive; */
-  height: 100%;
-  width: 100%;
 }
 
 .drum-pad:hover {
   cursor: default;
 }
 
-.hit {
-  /* background-color: orange; */
-  /* background-color: #fd509c; */
-
-  /* background-image: none; */
-  background-color: $drumPadPressed;
-  box-shadow: 0 0 10px white;
+.animating {
+  animation: click-animation 300ms;
 }
 
-.animated {
-  animation: revert-color 300ms;
-}
-
-@keyframes revert-color {
+@keyframes click-animation {
   from {
     background-color: $drumPadPressed;
     box-shadow: 0 0 10px white;

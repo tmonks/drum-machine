@@ -28,16 +28,10 @@ const soundBanks = [
       { name: "wolf", file: "animals/112[kb]cheesy_lofi_werewolf.aif.mp3" },
       { name: "cricket", file: "animals/172[kb]cricket.aif.mp3" },
       { name: "bull dog", file: "animals/175[kb]bulldog.wav.mp3" },
-      {
-        name: "tropical bird",
-        file: "animals/185[kb]annoying-tropical-bird.aif.mp3"
-      },
+      { name: "tropical bird", file: "animals/185[kb]annoying-tropical-bird.aif.mp3" },
       { name: "frog", file: "animals/22[kb]bullfrog.aif.mp3" },
       { name: "lion", file: "animals/24[kb]lion-roar.wav.mp3" },
-      {
-        name: "grizzly bear",
-        file: "animals/268[kb]grizzly-bear-big-growl.wav.mp3"
-      },
+      { name: "grizzly bear", file: "animals/268[kb]grizzly-bear-big-growl.wav.mp3" },
       { name: "ducks", file: "animals/455[kb]duck-quacks.wav.mp3" },
       { name: "loon", file: "animals/87[kb]jungle-bird.aif.mp3" }
     ]
@@ -53,10 +47,7 @@ const soundBanks = [
       { name: "break 2", file: "beat-box/36[kb]lofi_vox_break 2.aif.mp3" },
       { name: "crash", file: "beat-box/37[kb]vox_crash.aif.mp3" },
       { name: "phat bass drum", file: "beat-box/44[kb]phat_vox_bd.aif.mp3" },
-      {
-        name: "breathy rhythm",
-        file: "beat-box/50[kb]vox_breathy_rhythm.aif.mp3"
-      },
+      { name: "breathy rhythm", file: "beat-box/50[kb]vox_breathy_rhythm.aif.mp3" },
       { name: "break 1", file: "beat-box/66[kb]lofi_vox_break 1.aif.mp3" }
     ]
   },
@@ -65,20 +56,11 @@ const soundBanks = [
     samples: [
       { name: "rude raspberry", file: "cartoon/108[kb]rude-raspberry.wav.mp3" },
       { name: "sports whistle", file: "cartoon/156[kb]sports-whistle.wav.mp3" },
-      {
-        name: "spin whistle",
-        file: "cartoon/159[kb]cartoon-spin-whistle.wav.mp3"
-      },
+      { name: "spin whistle", file: "cartoon/159[kb]cartoon-spin-whistle.wav.mp3" },
       { name: "hit", file: "cartoon/241[kb]cartoon-hit.wav.mp3" },
       { name: "car horn 2", file: "cartoon/271[kb]model-a-car-horn 2.wav.mp3" },
-      {
-        name: "car zooming past",
-        file: "cartoon/300[kb]car-zooms-past.wav.mp3"
-      },
-      {
-        name: "cork pull and pop",
-        file: "cartoon/394[kb]cork-pull-and-pop.wav.mp3"
-      },
+      { name: "car zooming past", file: "cartoon/300[kb]car-zooms-past.wav.mp3" },
+      { name: "cork pull and pop", file: "cartoon/394[kb]cork-pull-and-pop.wav.mp3" },
       { name: "belch", file: "cartoon/417[kb]big-ol-belch-2.wav.mp3" },
       { name: "car horn 1", file: "cartoon/586[kb]model-a-car-horn.wav.mp3" },
       { name: "cloth rip", file: "cartoon/92[kb]cloth-rip.wav.mp3" }

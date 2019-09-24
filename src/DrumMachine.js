@@ -21,14 +21,7 @@ export default function DrumMachine() {
   const [currentBank, setCurrentBank] = useState(0);
   const drumPadLetters = ["Q", "W", "E", "A", "S", "D", "Z", "X", "C"];
 
-  // given a letter, find the drumPadID (index) of the drumPad
-  const letterToDrumPad = letter => {
-    return drumPadLetters.findIndex(x => {
-      return x === letter;
-    });
-  };
-
-  // Updates drumPadHits to mark the drumPadID as hit (true/false)
+  // Updates drumPadHits to mark the drumPadID as hit (true) or released (false)
   // Using useCallback so that it only gets updated when currentBank changes
   const hitDrumPad = useCallback(
     (drumPadID, hit) => {
@@ -45,55 +38,38 @@ export default function DrumMachine() {
     [currentBank]
   );
 
-  // if a drumPad is clicked, mark it as hit
-  const handleMouseDown = drumPadID => {
-    hitDrumPad(drumPadID, true);
-  };
-
-  // if a drumPad is clicked, mark it as not hit
-  const handleMouseUp = drumPadID => {
-    hitDrumPad(drumPadID, false);
-  };
-
-  const handleClickRight = () => {
+  // cycle through the available soundBanks to the right (increment)
+  const scrollBankRight = () => {
     setCurrentBank((currentBank + 1) % soundBanks.length);
     setDisplay("");
   };
 
-  const handleClickLeft = () => {
+  // cycle through the available soundBanks to the left (decrement)
+  const scrollBankLeft = () => {
     setCurrentBank((currentBank + soundBanks.length - 1) % soundBanks.length);
     setDisplay("");
   };
 
-  // set up event listeners for keypresses
+  // set up event listener for keydown
   useEffect(() => {
+    console.log("useEffect running");
     // if one of keys for a drumPad is pressed, hit the drum pad
     const handleKeyDown = e => {
-      const drumPadID = letterToDrumPad(String.fromCharCode(e.keyCode));
-      // confirm the drumPad was found
+      const drumPadID = drumPadLetters.findIndex(x => {
+        return x === String.fromCharCode(e.keyCode);
+      });
+      // if the drumPad letter was found, hit it
       if (drumPadID >= 0) {
         hitDrumPad(drumPadID, true);
       }
     };
 
-    // if one of the keys for a drumPad is released, release the drum pad
-    const handleKeyUp = e => {
-      const drumPadID = letterToDrumPad(String.fromCharCode(e.keyCode));
-      // confirm the drumPad was found
-      if (drumPadID >= 0) {
-        hitDrumPad(drumPadID, false);
-      }
-    };
-
-    console.log("Adding event listeners...");
     document.addEventListener("keydown", handleKeyDown, false);
-    document.addEventListener("keyup", handleKeyUp, false);
 
     return () => {
-      console.log("Cleaning up...");
       document.removeEventListener("keydown", handleKeyDown, false);
-      document.removeEventListener("keyup", handleKeyUp, false);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hitDrumPad]);
 
   return (
@@ -102,10 +78,9 @@ export default function DrumMachine() {
       <div id="drum-machine">
         <div className="title">SOUND MACHINE</div>
         <BankSelector
-          clipName=""
           currentBank={soundBanks[currentBank].name}
-          clickRightHandler={handleClickRight}
-          clickLeftHandler={handleClickLeft}
+          clickRightHandler={scrollBankRight}
+          clickLeftHandler={scrollBankLeft}
         />
         <div id="display" className="display">
           {display}
@@ -114,8 +89,8 @@ export default function DrumMachine() {
           return (
             <DrumPad
               hit={drumHits[index]}
-              mouseDownHandler={handleMouseDown}
-              mouseUpHandler={handleMouseUp}
+              hitPad={drumPadID => hitDrumPad(drumPadID, true)}
+              releasePad={drumPadID => hitDrumPad(drumPadID, false)}
               letter={drumPad}
               drumPadID={index}
               key={index}
@@ -123,19 +98,6 @@ export default function DrumMachine() {
             />
           );
         })}
-        {/* {drumPadConfig.map((drumPad, index) => {
-          return (
-            <DrumPad
-              hit={drumHits[index]}
-              mouseDownHandler={handleMouseDown}
-              mouseUpHandler={handleMouseUp}
-              letter={drumPad.id}
-              drumPadID={index}
-              key={index}
-              clip={drumPad.samples[currentBank].file}
-            />
-          );
-        })} */}
       </div>
     </div>
   );

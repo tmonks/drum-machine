@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-// import sound from "./assets/test.wav";
 import "./DrumPad.scss";
 
 export default function DrumPad(props) {
   let audioRef = null;
+  const [animating, setAnimating] = useState(false);
 
-  const [animated, setAnimated] = useState(false);
-
+  // play audio when props.hit is set to true
   useEffect(() => {
     if (props.hit) {
+      // set playback position and release animation in case of multiple hits in rapid succession
       audioRef.currentTime = 0;
-      setAnimated(false);
+      setAnimating(false);
 
       // audio.play() returns a Promise
       let playPromise = audioRef.play();
@@ -18,34 +18,28 @@ export default function DrumPad(props) {
       if (playPromise !== undefined) {
         playPromise
           .then(() => {
-            handleMouseUp();
-            setAnimated(true);
+            // audio playback is starting, start release animation and release the pad
+            setAnimating(true);
+            props.releasePad(props.drumPadID);
           })
           .catch(error => {
             console.log("playback failed: " + error);
           });
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.hit, audioRef]);
 
   const handleMouseDown = () => {
-    setAnimated(false);
-    props.mouseDownHandler(props.drumPadID);
-  };
-
-  const handleMouseUp = () => {
-    setAnimated(true);
-    props.mouseUpHandler(props.drumPadID);
+    setAnimating(false); // stop release animation
+    props.hitPad(props.drumPadID); // mark it as hit
   };
 
   return (
     <div
-      className={`drum-pad ${props.hit ? "hit" : ""} ${
-        animated ? "animated" : ""
-      }`}
+      className={`drum-pad ${animating ? "animating" : ""}`}
       onMouseDown={() => handleMouseDown()}
-      // onMouseUp={() => handleMouseUp()}
-      onAnimationEnd={() => setAnimated(false)}
+      onAnimationEnd={() => setAnimating(false)}
       id={"drumPad" + props.drumPadID}
     >
       {props.letter}
@@ -56,7 +50,6 @@ export default function DrumPad(props) {
         src={process.env.PUBLIC_URL + "/sounds/" + props.clip}
         id={props.letter}
         className="clip"
-        // onEnded={() => console.log("playback finished")}
       />
     </div>
   );
