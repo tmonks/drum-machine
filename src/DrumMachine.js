@@ -52,7 +52,6 @@ export default function DrumMachine() {
 
   // set up event listener for keydown
   useEffect(() => {
-    console.log("useEffect running");
     // if one of keys for a drumPad is pressed, hit the drum pad
     const handleKeyDown = e => {
       const drumPadID = drumPadLetters.findIndex(x => {
