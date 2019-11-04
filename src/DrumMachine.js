@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import ReactFCCTest from "react-fcctest";
+// import ReactFCCTest from "react-fcctest";
 import BankSelector from "./BankSelector";
 import DrumPad from "./DrumPad";
 import soundBanks from "./soundBanks";
@@ -73,7 +73,7 @@ export default function DrumMachine() {
 
   return (
     <div>
-      <ReactFCCTest />
+      {/* <ReactFCCTest /> */}
       <div id="drum-machine">
         <div className="title">SOUND MACHINE</div>
         <BankSelector
